@@ -1,0 +1,18 @@
+You must copy data file to HDFS:
+- hadoop fs -copyFromLocal data.txt
+
+To run the jar file using Hadoop:
+- hadoop jar  /home/cloudera/FriendsOfFriends.jar FriendsOfFriends data.txt friendsOfFriends P1
+- Make sure that the output hdfs file doesn't exist before, so remove it after its creation
+
+To show the result content:
+- hadoop fs -cat friendsOfFriends/part-r-00000
+
+To remove data file from HDFS:
+- hadoop fs -rm -r /user/cloudera/friendsOfFriends
+
+To copy the result from HDFS to local storage:
+- hadoop fs -copyToLocal friendsOfFriends/part-r-00000
+
+To list the content inside a HDFS folder:
+- hadoop fs -ls friendsOfFriends

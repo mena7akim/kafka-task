@@ -1,0 +1,51 @@
+---- Necessary steps to run the jar files ----
+Start the Kafka server (Before Anything Else):
+- bin/kafka-server-start.sh config/server.properties
+
+Producer:
+- java -cp KafkaTask.jar:[Kafka path to JARs] Producer [port = 9092] [topic = task1]
+- Ex: java -cp KafkaTask.jar:"/home/cloudera/kafka_2.11-0.9.0.0/libs/*" Producer 9092 task1
+
+Consumer:
+- java -cp KafkaTask.jar:[Kafka path to JARs] Consumer [port = 9092] [topic = task1] [group-name = simple-consumer-group]
+- Ex: java -cp KafkaTask.jar:"/home/cloudera/kafka_2.11-0.9.0.0/libs/*" Consumer 9092 task1 g1
+
+Important:
+- Make sure the Kafka server running
+
+
+
+-------------------------- Original Kafka Commands / Open terminal in Kafka folder --------------------------
+Start the Kafka server (Necessary):
+- bin/kafka-server-start.sh config/server.properties
+
+Create a Topic:
+- bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic task1
+
+List Existing Kafaka topics:
+- bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+Producer Kafka command:
+- bin/kafka-console-producer.sh --broker-list localhost:9092 --topic task1
+
+Consumer Kafka Command:
+- bin/kafka-console-consumer.sh --zookeeper localhost:2181 -topic task1 --from-beginning
+
+-------------------------- Convert each java class to runnable JAR file --------------------------
+- Eclipse -> File -> Export
+- Choose runnable jar and click next
+- The runnable jar export window has a radio button where you can choose to package the required libraries into the jar
+
+-------------------------- Run JAR Files --------------------------
+Producer:
+- java -jar Producer.jar [port] [topic]
+- Ex: java -jar Producer.jar 9092 task1
+
+Consumer:
+- java -jar Consumer.jar [port] [topic] [group-name]
+- Ex: java -jar Consumer.jar 9092 task1 g1
+
+Notes
+- Producer and Consumer ports should be the same as the Kafka broker (9092)
+- To broadcast the produced messages to all consumers, pass a different [group-name] for each consumer in its jar command
+
